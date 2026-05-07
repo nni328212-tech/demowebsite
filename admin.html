@@ -3,293 +3,385 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản lý Sản phẩm - POTECH Admin</title>
+  <title>POTECH Admin - Quản trị CMS</title>
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .admin-page { padding: 100px 0 60px; }
-    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
-    .admin-header h1 { font-size: 1.8rem; }
-    .admin-actions { display: flex; gap: 12px; }
-
+    .admin-page{padding:80px 0 40px}
+    /* Login */
+    .login-box{max-width:400px;margin:120px auto;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:40px;text-align:center}
+    .login-box h2{margin-bottom:24px}.login-box .form-group{margin-bottom:16px;text-align:left}
+    .login-box label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--text-secondary)}
+    .login-box .btn{width:100%;justify-content:center;margin-top:8px}
+    .login-error{color:#ff5252;font-size:.85rem;margin-top:8px}
+    /* Dashboard cards */
+    .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+    .dash-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;transition:var(--transition)}
+    .dash-card:hover{border-color:var(--border-glow)}
+    .dash-card .num{font-size:2rem;font-weight:800;color:var(--accent)}
+    .dash-card .label{font-size:.8rem;color:var(--text-muted);margin-top:4px}
+    /* Tabs */
+    .admin-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:0}
+    .admin-tab{padding:10px 20px;background:none;border:none;color:var(--text-secondary);font-size:.9rem;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:var(--transition)}
+    .admin-tab:hover{color:var(--text-primary)}.admin-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
     /* Table */
-    .admin-table { width: 100%; border-collapse: separate; border-spacing: 0; }
-    .admin-table th {
-      text-align: left; padding: 12px 16px; font-size: 0.8rem; font-weight: 600;
-      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--border); background: var(--bg-secondary);
-    }
-    .admin-table td {
-      padding: 12px 16px; border-bottom: 1px solid var(--border);
-      font-size: 0.9rem; vertical-align: middle;
-    }
-    .admin-table tr:hover td { background: rgba(0,212,255,0.03); }
-    .admin-table .thumb { width: 50px; height: 50px; border-radius: 8px; object-fit: contain; background: var(--bg-card); padding: 4px; }
-    .admin-table .price-cell { font-weight: 700; color: var(--accent); white-space: nowrap; }
-    .admin-table .stock-yes { color: #00e676; font-weight: 600; }
-    .admin-table .stock-no { color: #ff5252; font-weight: 600; }
-    .action-btns { display: flex; gap: 6px; }
-    .action-btns button {
-      padding: 6px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;
-      border: 1px solid var(--border); background: var(--bg-card); color: var(--text-secondary);
-      transition: var(--transition); cursor: pointer;
-    }
-    .action-btns .edit-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .action-btns .del-btn:hover { border-color: #ff5252; color: #ff5252; }
-
+    .table-wrap{overflow-x:auto;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)}
+    .admin-table{width:100%;border-collapse:separate;border-spacing:0}
+    .admin-table th{text-align:left;padding:12px 16px;font-size:.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--bg-secondary)}
+    .admin-table td{padding:10px 16px;border-bottom:1px solid var(--border);font-size:.85rem;vertical-align:middle}
+    .admin-table tr:hover td{background:rgba(0,212,255,.03)}
+    .admin-table .thumb{width:45px;height:45px;border-radius:8px;object-fit:contain;background:var(--bg-primary);padding:3px}
+    .price-cell{font-weight:700;color:var(--accent);white-space:nowrap}
+    .cost-cell{font-size:.8rem;color:var(--text-muted)}
+    .margin-cell{font-size:.8rem;font-weight:600}
+    .margin-good{color:#00e676}.margin-warn{color:var(--accent-warm)}.margin-bad{color:#ff5252}
+    .stock-yes{color:#00e676;font-weight:600}.stock-no{color:#ff5252;font-weight:600}
+    .status-badge{padding:3px 10px;border-radius:50px;font-size:.7rem;font-weight:600}
+    .status-new{background:rgba(0,212,255,.15);color:var(--accent)}
+    .status-contacted{background:rgba(255,167,38,.15);color:#ffa726}
+    .status-won{background:rgba(0,230,118,.15);color:#00e676}
+    .status-lost{background:rgba(255,82,82,.15);color:#ff5252}
+    .action-btns{display:flex;gap:6px}
+    .action-btns button{padding:5px 12px;border-radius:6px;font-size:.75rem;font-weight:600;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);cursor:pointer;transition:var(--transition)}
+    .action-btns .edit-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .action-btns .del-btn:hover{border-color:#ff5252;color:#ff5252}
+    /* Header bar */
+    .admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .admin-header h2{font-size:1.4rem}
+    .admin-actions{display:flex;gap:10px;align-items:center}
+    .user-info{font-size:.8rem;color:var(--text-muted);margin-right:12px}
     /* Modal */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 3000;
-      background: rgba(10,10,15,0.85); backdrop-filter: blur(10px);
-      display: none; align-items: center; justify-content: center; padding: 24px;
-    }
-    .modal-overlay.active { display: flex; }
-    .modal {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius); width: 100%; max-width: 600px;
-      max-height: 90vh; overflow-y: auto; padding: 32px;
-    }
-    .modal h2 { font-size: 1.3rem; margin-bottom: 24px; }
-    .modal .form-group { margin-bottom: 16px; }
-    .modal label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text-secondary); }
-    .modal .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
-    .modal-actions .btn { padding: 10px 24px; }
-
-    /* Export info */
-    .export-info {
-      background: rgba(0,212,255,0.08); border: 1px solid var(--border-glow);
-      border-radius: var(--radius); padding: 20px; margin-bottom: 24px;
-    }
-    .export-info h3 { font-size: 0.95rem; margin-bottom: 8px; color: var(--accent); }
-    .export-info p { font-size: 0.85rem; color: var(--text-secondary); }
-    .export-info code { background: var(--bg-primary); padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; color: var(--accent); }
-
-    .table-wrap { overflow-x: auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); }
-    @media (max-width: 768px) {
-      .modal .form-row { grid-template-columns: 1fr; }
-    }
+    .modal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(10,10,15,.85);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:24px}
+    .modal-overlay.active{display:flex}
+    .modal{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;padding:32px}
+    .modal h2{font-size:1.2rem;margin-bottom:20px}
+    .modal .form-group{margin-bottom:14px}.modal label{display:block;font-size:.8rem;font-weight:600;margin-bottom:5px;color:var(--text-secondary)}
+    .modal .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:20px}
+    .section-label{font-size:.9rem;font-weight:700;margin:16px 0 10px;color:var(--accent);border-bottom:1px solid var(--border);padding-bottom:6px}
+    @media(max-width:768px){.dash-grid{grid-template-columns:repeat(2,1fr)}.modal .form-row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 <div class="bg-grid"></div>
 
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="logo" style="font-size:1.8rem;margin-bottom:8px;">POTECH<span>.vn</span></div>
+    <h2>Đăng nhập Quản trị</h2>
+    <form id="loginForm">
+      <div class="form-group"><label>Email</label><input type="email" id="loginEmail" value="admin@potech.com.vn" required></div>
+      <div class="form-group"><label>Mật khẩu</label><input type="password" id="loginPass" required></div>
+      <button type="submit" class="btn btn-primary">Đăng nhập</button>
+      <div class="login-error" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" style="display:none">
 <header class="header scrolled">
   <div class="container">
     <nav class="nav">
       <a href="index.html" class="logo">POTECH<span>.vn</span></a>
-      <div class="nav-links" id="navLinks">
+      <div class="nav-links">
         <a href="index.html">Trang chủ</a>
         <a href="products.html">Sản phẩm</a>
-        <a href="admin.html" class="active">Quản lý</a>
+        <a href="admin.html" class="active">Quản trị</a>
+        <button class="nav-cta" onclick="logout()" style="cursor:pointer">Đăng xuất</button>
       </div>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
     </nav>
   </div>
 </header>
 
 <section class="admin-page">
   <div class="container">
-    <div class="export-info">
-      <h3>💡 Hướng dẫn quản lý sản phẩm</h3>
-      <p>Thêm/sửa/xóa sản phẩm bên dưới. Sau khi chỉnh sửa xong, nhấn <strong>"Xuất JSON"</strong> để tải file <code>products.json</code> mới, rồi thay thế file cũ trong thư mục <code>data/</code> và đẩy lên GitHub.</p>
+    <!-- Dashboard -->
+    <div class="dash-grid" id="dashGrid">
+      <div class="dash-card"><div class="num" id="dTotal">-</div><div class="label">Sản phẩm</div></div>
+      <div class="dash-card"><div class="num" id="dInquiry">-</div><div class="label">Yêu cầu mới</div></div>
+      <div class="dash-card"><div class="num" id="dCustomer">-</div><div class="label">Khách hàng</div></div>
+      <div class="dash-card"><div class="num" id="dQuote">-</div><div class="label">Báo giá chờ</div></div>
     </div>
 
-    <div class="admin-header">
-      <h1>Quản lý Sản phẩm <span id="totalCount" style="font-size:1rem;color:var(--text-muted);font-weight:400;"></span></h1>
-      <div class="admin-actions">
-        <button class="btn btn-outline" onclick="exportJSON()">📥 Xuất JSON</button>
-        <button class="btn btn-primary" onclick="openModal()">+ Thêm sản phẩm</button>
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="products">📦 Sản phẩm</button>
+      <button class="admin-tab" data-tab="inquiries">📩 Yêu cầu</button>
+      <button class="admin-tab" data-tab="customers">👥 Khách hàng</button>
+    </div>
+
+    <!-- Products Tab -->
+    <div class="tab-content" id="tab-products">
+      <div class="admin-header">
+        <h2>Quản lý Sản phẩm</h2>
+        <div class="admin-actions">
+          <button class="btn btn-primary" onclick="openProductModal()">+ Thêm sản phẩm</button>
+        </div>
       </div>
+      <div class="table-wrap"><table class="admin-table"><thead>
+        <tr><th>Ảnh</th><th>SKU</th><th>Tên</th><th>Danh mục</th><th>Giá bán</th><th>Giá vốn</th><th>Margin</th><th>Kho</th><th>Thao tác</th></tr>
+      </thead><tbody id="prodBody"></tbody></table></div>
     </div>
 
-    <div class="table-wrap">
-      <table class="admin-table">
-        <thead>
-          <tr><th>Ảnh</th><th>Tên sản phẩm</th><th>Danh mục</th><th>Giá bán</th><th>Giá cũ</th><th>Tồn kho</th><th>Nổi bật</th><th>Thao tác</th></tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
+    <!-- Inquiries Tab -->
+    <div class="tab-content" id="tab-inquiries" style="display:none">
+      <div class="admin-header"><h2>Yêu cầu Báo giá</h2></div>
+      <div class="table-wrap"><table class="admin-table"><thead>
+        <tr><th>Thời gian</th><th>Họ tên</th><th>SĐT</th><th>Dịch vụ</th><th>Trạng thái</th><th>Thao tác</th></tr>
+      </thead><tbody id="inqBody"></tbody></table></div>
+    </div>
+
+    <!-- Customers Tab -->
+    <div class="tab-content" id="tab-customers" style="display:none">
+      <div class="admin-header"><h2>Khách hàng (CRM)</h2><button class="btn btn-primary" onclick="openCustomerModal()">+ Thêm KH</button></div>
+      <div class="table-wrap"><table class="admin-table"><thead>
+        <tr><th>Công ty</th><th>Liên hệ</th><th>SĐT</th><th>Nguồn</th><th>Trạng thái</th><th>Doanh thu</th><th>Thao tác</th></tr>
+      </thead><tbody id="custBody"></tbody></table></div>
     </div>
   </div>
 </section>
+</div>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modal">
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal">
   <div class="modal">
-    <h2 id="modalTitle">Thêm sản phẩm mới</h2>
+    <h2 id="prodModalTitle">Thêm sản phẩm</h2>
     <form id="productForm">
-      <input type="hidden" id="editIndex" value="-1">
+      <input type="hidden" id="editId">
       <div class="form-row">
-        <div class="form-group"><label>Tên sản phẩm *</label><input type="text" id="f_name" required placeholder="VD: Đèn LED Highbay 100W"></div>
-        <div class="form-group"><label>ID (slug)</label><input type="text" id="f_id" placeholder="VD: highbay-100w"></div>
+        <div class="form-group"><label>Tên sản phẩm *</label><input type="text" id="f_name" required></div>
+        <div class="form-group"><label>SKU</label><input type="text" id="f_sku" placeholder="PT-HB-100"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Danh mục (slug)</label><input type="text" id="f_category" placeholder="VD: den-nha-xuong"></div>
-        <div class="form-group"><label>Tên danh mục</label><input type="text" id="f_categoryName" placeholder="VD: Đèn LED Nhà xưởng"></div>
+        <div class="form-group"><label>Danh mục</label><select id="f_cat"></select></div>
+        <div class="form-group"><label>Badge</label><input type="text" id="f_badge" placeholder="Bán chạy / Mới"></div>
+      </div>
+      <div class="section-label">💰 Giá</div>
+      <div class="form-row">
+        <div class="form-group"><label>Giá bán (VNĐ) *</label><input type="number" id="f_price" required></div>
+        <div class="form-group"><label>Giá vốn</label><input type="number" id="f_cost" value="0"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Giá bán (VNĐ) *</label><input type="number" id="f_price" required placeholder="1850000"></div>
-        <div class="form-group"><label>Giá cũ (0 = không có)</label><input type="number" id="f_oldPrice" value="0"></div>
+        <div class="form-group"><label>Giá cũ (khuyến mãi)</label><input type="number" id="f_oldPrice" value="0"></div>
+        <div class="form-group"><label>Đơn vị</label><input type="text" id="f_unit" value="bộ"></div>
+      </div>
+      <div class="section-label">⚙ Thông số</div>
+      <div class="form-row">
+        <div class="form-group"><label>Công suất (W)</label><input type="number" id="f_power"></div>
+        <div class="form-group"><label>Quang thông (lm)</label><input type="number" id="f_lumens"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Hình ảnh</label><input type="text" id="f_image" placeholder="images/led_highbay.png"></div>
-        <div class="form-group"><label>Badge</label><input type="text" id="f_badge" placeholder="Bán chạy / Mới / Đặc biệt"></div>
+        <div class="form-group"><label>Chỉ số IP</label><input type="text" id="f_ip"></div>
+        <div class="form-group"><label>Bảo hành (tháng)</label><input type="number" id="f_warranty" value="60"></div>
       </div>
-      <div class="form-group"><label>Mô tả</label><textarea id="f_desc" placeholder="Mô tả chi tiết sản phẩm..." style="min-height:80px;"></textarea></div>
-      <h3 style="font-size:0.95rem;margin:20px 0 12px;">Thông số kỹ thuật</h3>
+      <div class="form-group"><label>Hình ảnh URL</label><input type="text" id="f_img" value="images/led_highbay.png"></div>
+      <div class="form-group"><label>Mô tả</label><textarea id="f_desc" style="min-height:60px"></textarea></div>
       <div class="form-row">
-        <div class="form-group"><label>Công suất</label><input type="text" id="f_power" placeholder="100W"></div>
-        <div class="form-group"><label>Quang thông</label><input type="text" id="f_lumens" placeholder="16,000 lm"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Chip LED</label><input type="text" id="f_chip" value="Nichia (Japan)"></div>
-        <div class="form-group"><label>Chỉ số IP</label><input type="text" id="f_ip" placeholder="IP65"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Bảo hành</label><input type="text" id="f_warranty" placeholder="5 năm"></div>
-        <div class="form-group"><label>Tuổi thọ</label><input type="text" id="f_lifespan" value="50,000h"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label><input type="checkbox" id="f_inStock" checked> Còn hàng</label></div>
-        <div class="form-group"><label><input type="checkbox" id="f_featured"> Sản phẩm nổi bật</label></div>
+        <div class="form-group"><label><input type="checkbox" id="f_stock" checked> Còn hàng</label></div>
+        <div class="form-group"><label><input type="checkbox" id="f_featured"> Nổi bật</label></div>
       </div>
       <div class="modal-actions">
-        <button type="button" class="btn btn-outline" onclick="closeModal()">Hủy</button>
-        <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+        <button type="button" class="btn btn-outline" onclick="closeModal('productModal')">Hủy</button>
+        <button type="submit" class="btn btn-primary">Lưu</button>
       </div>
     </form>
   </div>
 </div>
 
+<script src="js/supabase-client.js"></script>
 <script>
-let products = [];
+// --- AUTH ---
+if (supabase.isLoggedIn()) { showAdmin(); } 
 
-async function init() {
-  try {
-    const saved = localStorage.getItem('potech_products');
-    if (saved) {
-      products = JSON.parse(saved);
-    } else {
-      const res = await fetch('data/products.json');
-      products = await res.json();
-      localStorage.setItem('potech_products', JSON.stringify(products));
-    }
-  } catch (e) {
-    products = [];
-  }
-  renderTable();
-}
-
-function save() {
-  localStorage.setItem('potech_products', JSON.stringify(products));
-  renderTable();
-}
-
-function formatPrice(n) { return n ? n.toLocaleString('vi-VN') + 'đ' : '-'; }
-
-function renderTable() {
-  document.getElementById('totalCount').textContent = `(${products.length} sản phẩm)`;
-  document.getElementById('tableBody').innerHTML = products.map((p, i) => `
-    <tr>
-      <td><img class="thumb" src="${p.image}" alt="${p.name}"></td>
-      <td><strong>${p.name}</strong>${p.badge ? ` <span style="color:var(--accent-warm);font-size:0.75rem;">[${p.badge}]</span>` : ''}</td>
-      <td style="color:var(--text-secondary);font-size:0.85rem;">${p.categoryName}</td>
-      <td class="price-cell">${formatPrice(p.price)}</td>
-      <td style="color:var(--text-muted);text-decoration:line-through;font-size:0.85rem;">${p.oldPrice ? formatPrice(p.oldPrice) : '-'}</td>
-      <td><span class="${p.inStock ? 'stock-yes' : 'stock-no'}">${p.inStock ? '✓ Còn' : '✗ Hết'}</span></td>
-      <td>${p.featured ? '⭐' : '-'}</td>
-      <td><div class="action-btns">
-        <button class="edit-btn" onclick="editProduct(${i})">Sửa</button>
-        <button class="del-btn" onclick="deleteProduct(${i})">Xóa</button>
-      </div></td>
-    </tr>`).join('');
-}
-
-function openModal(idx = -1) {
-  document.getElementById('editIndex').value = idx;
-  document.getElementById('modalTitle').textContent = idx >= 0 ? 'Sửa sản phẩm' : 'Thêm sản phẩm mới';
-  const p = idx >= 0 ? products[idx] : null;
-  document.getElementById('f_name').value = p ? p.name : '';
-  document.getElementById('f_id').value = p ? p.id : '';
-  document.getElementById('f_category').value = p ? p.category : '';
-  document.getElementById('f_categoryName').value = p ? p.categoryName : '';
-  document.getElementById('f_price').value = p ? p.price : '';
-  document.getElementById('f_oldPrice').value = p ? (p.oldPrice || 0) : 0;
-  document.getElementById('f_image').value = p ? p.image : 'images/';
-  document.getElementById('f_badge').value = p ? p.badge : '';
-  document.getElementById('f_desc').value = p ? p.description : '';
-  document.getElementById('f_power').value = p ? p.specs.power : '';
-  document.getElementById('f_lumens').value = p ? p.specs.lumens : '';
-  document.getElementById('f_chip').value = p ? p.specs.chip : 'Nichia (Japan)';
-  document.getElementById('f_ip').value = p ? p.specs.ip : '';
-  document.getElementById('f_warranty').value = p ? p.specs.warranty : '5 năm';
-  document.getElementById('f_lifespan').value = p ? p.specs.lifespan : '50,000h';
-  document.getElementById('f_inStock').checked = p ? p.inStock : true;
-  document.getElementById('f_featured').checked = p ? p.featured : false;
-  document.getElementById('modal').classList.add('active');
-}
-
-function closeModal() { document.getElementById('modal').classList.remove('active'); }
-
-function editProduct(i) { openModal(i); }
-
-function deleteProduct(i) {
-  if (confirm(`Xóa "${products[i].name}"?`)) {
-    products.splice(i, 1);
-    save();
-  }
-}
-
-document.getElementById('productForm').addEventListener('submit', function(e) {
+document.getElementById('loginForm').onsubmit = async (e) => {
   e.preventDefault();
-  const idx = +document.getElementById('editIndex').value;
-  const name = document.getElementById('f_name').value;
-  const obj = {
-    id: document.getElementById('f_id').value || name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
-    name: name,
-    category: document.getElementById('f_category').value,
-    categoryName: document.getElementById('f_categoryName').value,
-    price: +document.getElementById('f_price').value,
-    oldPrice: +document.getElementById('f_oldPrice').value,
-    image: document.getElementById('f_image').value,
-    badge: document.getElementById('f_badge').value,
-    specs: {
-      power: document.getElementById('f_power').value,
-      lumens: document.getElementById('f_lumens').value,
-      chip: document.getElementById('f_chip').value,
-      ip: document.getElementById('f_ip').value,
-      warranty: document.getElementById('f_warranty').value,
-      lifespan: document.getElementById('f_lifespan').value
-    },
-    description: document.getElementById('f_desc').value,
-    inStock: document.getElementById('f_inStock').checked,
-    featured: document.getElementById('f_featured').checked
-  };
-  if (idx >= 0) products[idx] = obj;
-  else products.push(obj);
-  save();
-  closeModal();
-});
+  try {
+    await supabase.signIn(document.getElementById('loginEmail').value, document.getElementById('loginPass').value);
+    showAdmin();
+  } catch (err) {
+    document.getElementById('loginError').textContent = err.message;
+  }
+};
 
-function exportJSON() {
-  const blob = new Blob([JSON.stringify(products, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'products.json';
-  a.click();
+function showAdmin() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  loadDashboard();
+  loadProducts();
+  loadInquiries();
+  loadCustomers();
+  loadCategorySelect();
 }
 
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-document.getElementById('menuToggle').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('active');
+function logout() {
+  supabase.signOut();
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'block';
+}
+
+// --- TABS ---
+document.querySelectorAll('.admin-tab').forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    tab.classList.add('active');
+    document.getElementById(`tab-${tab.dataset.tab}`).style.display = 'block';
+  };
 });
 
-init();
+// --- DASHBOARD ---
+async function loadDashboard() {
+  try {
+    const [prods, inqs, custs, quotes] = await Promise.all([
+      supabase.get('products', 'select=id'), supabase.get('inquiries', 'status=eq.new&select=id'),
+      supabase.get('customers', 'select=id'), supabase.get('quotes', 'status=eq.sent&select=id')
+    ]);
+    document.getElementById('dTotal').textContent = prods.length;
+    document.getElementById('dInquiry').textContent = inqs.length;
+    document.getElementById('dCustomer').textContent = custs.length;
+    document.getElementById('dQuote').textContent = quotes.length;
+  } catch (e) { console.error('Dashboard:', e); }
+}
+
+// --- PRODUCTS ---
+let allProducts = [];
+async function loadProducts() {
+  try {
+    allProducts = await ProductAPI.list('order=sort_order,created_at.desc');
+    renderProductTable();
+  } catch (e) { console.error('Products:', e); }
+}
+
+function renderProductTable() {
+  document.getElementById('prodBody').innerHTML = allProducts.map(p => {
+    const margin = p.cost_price > 0 ? Math.round((p.price - p.cost_price) / p.price * 100) : '-';
+    const mClass = margin === '-' ? '' : margin >= 40 ? 'margin-good' : margin >= 25 ? 'margin-warn' : 'margin-bad';
+    return `<tr>
+      <td><img class="thumb" src="${p.image_url}" alt="${p.name}"></td>
+      <td style="font-size:.8rem;color:var(--text-muted)">${p.sku||'-'}</td>
+      <td><strong>${p.name}</strong>${p.badge?` <span style="color:var(--accent-warm);font-size:.7rem">[${p.badge}]</span>`:''}</td>
+      <td style="font-size:.8rem;color:var(--text-secondary)">${p.category_name||'-'}</td>
+      <td class="price-cell">${formatVND(p.price)}</td>
+      <td class="cost-cell">${p.cost_price?formatVND(p.cost_price):'-'}</td>
+      <td class="${mClass} margin-cell">${margin}${margin!=='-'?'%':''}</td>
+      <td><span class="${p.in_stock?'stock-yes':'stock-no'}">${p.in_stock?'✓ Còn':'✗ Hết'}</span></td>
+      <td><div class="action-btns">
+        <button class="edit-btn" onclick="editProduct('${p.id}')">Sửa</button>
+        <button class="del-btn" onclick="deleteProduct('${p.id}','${p.name}')">Xóa</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+async function loadCategorySelect() {
+  const cats = await CategoryAPI.list();
+  document.getElementById('f_cat').innerHTML = cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+}
+
+function openProductModal(id) {
+  const p = id ? allProducts.find(x => x.id === id) : null;
+  document.getElementById('editId').value = id || '';
+  document.getElementById('prodModalTitle').textContent = p ? 'Sửa sản phẩm' : 'Thêm sản phẩm mới';
+  document.getElementById('f_name').value = p?.name || '';
+  document.getElementById('f_sku').value = p?.sku || '';
+  document.getElementById('f_cat').value = p?.category_id || '';
+  document.getElementById('f_badge').value = p?.badge || '';
+  document.getElementById('f_price').value = p?.price || '';
+  document.getElementById('f_cost').value = p?.cost_price || 0;
+  document.getElementById('f_oldPrice').value = p?.old_price || 0;
+  document.getElementById('f_unit').value = p?.unit || 'bộ';
+  document.getElementById('f_power').value = p?.power_watt || '';
+  document.getElementById('f_lumens').value = p?.lumens || '';
+  document.getElementById('f_ip').value = p?.ip_rating || '';
+  document.getElementById('f_warranty').value = p?.warranty_months || 60;
+  document.getElementById('f_img').value = p?.image_url || 'images/led_highbay.png';
+  document.getElementById('f_desc').value = p?.description || '';
+  document.getElementById('f_stock').checked = p ? p.in_stock : true;
+  document.getElementById('f_featured').checked = p?.is_featured || false;
+  document.getElementById('productModal').classList.add('active');
+}
+
+function editProduct(id) { openProductModal(id); }
+
+async function deleteProduct(id, name) {
+  if (!confirm(`Xóa "${name}"?`)) return;
+  await ProductAPI.delete(id);
+  loadProducts(); loadDashboard();
+}
+
+document.getElementById('productForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('f_name').value;
+  const data = {
+    name, slug: slugify(name),
+    sku: document.getElementById('f_sku').value || null,
+    category_id: document.getElementById('f_cat').value || null,
+    badge: document.getElementById('f_badge').value,
+    price: +document.getElementById('f_price').value,
+    cost_price: +document.getElementById('f_cost').value,
+    old_price: +document.getElementById('f_oldPrice').value,
+    unit: document.getElementById('f_unit').value,
+    power_watt: +document.getElementById('f_power').value || 0,
+    lumens: +document.getElementById('f_lumens').value || 0,
+    ip_rating: document.getElementById('f_ip').value,
+    warranty_months: +document.getElementById('f_warranty').value,
+    image_url: document.getElementById('f_img').value,
+    description: document.getElementById('f_desc').value,
+    in_stock: document.getElementById('f_stock').checked,
+    is_featured: document.getElementById('f_featured').checked,
+    specs: { power: document.getElementById('f_power').value+'W', lumens: document.getElementById('f_lumens').value+' lm', chip: 'Nichia (Japan)', ip: document.getElementById('f_ip').value, warranty: document.getElementById('f_warranty').value+' tháng' }
+  };
+  const id = document.getElementById('editId').value;
+  if (id) await ProductAPI.update(id, data); else await ProductAPI.create(data);
+  closeModal('productModal');
+  loadProducts(); loadDashboard();
+};
+
+// --- INQUIRIES ---
+async function loadInquiries() {
+  try {
+    const list = await InquiryAPI.list();
+    document.getElementById('inqBody').innerHTML = list.map(i => `<tr>
+      <td style="font-size:.8rem;color:var(--text-muted)">${new Date(i.created_at).toLocaleDateString('vi-VN')} ${new Date(i.created_at).toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'})}</td>
+      <td><strong>${i.full_name}</strong>${i.company_name?`<br><span style="font-size:.75rem;color:var(--text-muted)">${i.company_name}</span>`:''}</td>
+      <td>${i.phone}</td><td style="font-size:.85rem">${i.service||'-'}</td>
+      <td><span class="status-badge status-${i.status}">${i.status}</span></td>
+      <td><div class="action-btns">
+        <button class="edit-btn" onclick="respondInquiry('${i.id}')">Phản hồi</button>
+      </div></td>
+    </tr>`).join('') || '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted)">Chưa có yêu cầu nào</td></tr>';
+  } catch (e) { console.error('Inquiries:', e); }
+}
+
+async function respondInquiry(id) {
+  if (confirm('Đánh dấu đã liên hệ?')) {
+    await InquiryAPI.respond(id);
+    loadInquiries(); loadDashboard();
+  }
+}
+
+// --- CUSTOMERS ---
+async function loadCustomers() {
+  try {
+    const list = await CustomerAPI.list();
+    document.getElementById('custBody').innerHTML = list.map(c => `<tr>
+      <td><strong>${c.company_name||'-'}</strong></td>
+      <td>${c.contact_name}</td><td>${c.phone}</td>
+      <td style="font-size:.8rem">${c.source}</td>
+      <td><span class="status-badge status-${c.status==='customer'?'won':c.status==='lead'?'new':'contacted'}">${c.status}</span></td>
+      <td class="price-cell">${c.total_revenue?formatVND(c.total_revenue):'-'}</td>
+      <td><div class="action-btns"><button class="edit-btn" onclick="alert('Edit ${c.id}')">Sửa</button></div></td>
+    </tr>`).join('') || '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-muted)">Chưa có khách hàng</td></tr>';
+  } catch (e) { console.error('Customers:', e); }
+}
+
+// --- UTILS ---
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+document.querySelectorAll('.modal-overlay').forEach(m => m.onclick = (e) => { if (e.target === m) closeModal(m.id); });
 </script>
 </body>
 </html>

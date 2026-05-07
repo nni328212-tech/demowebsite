@@ -3,8 +3,8 @@
  * Full commercial API: Products, Customers, Quotes, Analytics
  */
 
-const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE';
+const SUPABASE_URL = 'https://npozfdcayxsivnpxgnzy.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wb3pmZGNheXhzaXZucHhnbnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwOTcxNjcsImV4cCI6MjA5MzY3MzE2N30.bAGqNewWmoEWlPYZBAbYDGVUtJpua22hXDYTaN1CN40';
 
 // ============ CORE CLIENT ============
 const supabase = {
