@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sản phẩm Đèn LED - POTECH | Bảng giá mới nhất 2026</title>
+  <meta name="description" content="Bảng giá đèn LED POTECH 2026. Đèn LED nhà xưởng, đèn pha, đèn đường, đèn chống cháy nổ. Chip Nichia Nhật Bản, bảo hành 5 năm.">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Products Page Specific */
+    .products-page { padding: 100px 0 60px; }
+    .filter-bar {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 40px; align-items: center;
+    }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 50px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text-secondary); font-size: 0.85rem; font-weight: 500;
+      transition: var(--transition); cursor: pointer;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: rgba(0,212,255,0.1); border-color: var(--accent); color: var(--accent);
+    }
+    .sort-select {
+      margin-left: auto; padding: 8px 16px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text-secondary);
+      font-size: 0.85rem; font-family: var(--font);
+    }
+    .products-list {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    }
+    .product-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: var(--transition); position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-6px); border-color: var(--border-glow);
+      box-shadow: 0 16px 48px rgba(0,212,255,0.1);
+    }
+    .product-badge {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-warm), #ff9a56); color: #fff;
+    }
+    .product-badge.new { background: linear-gradient(135deg, var(--accent), var(--accent-secondary)); }
+    .product-badge.special { background: linear-gradient(135deg, #e91e63, #f44336); }
+    .product-img {
+      height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #111, #1a1a2e); padding: 16px;
+    }
+    .product-img img { max-height: 100%; object-fit: contain; transition: var(--transition); }
+    .product-card:hover .product-img img { transform: scale(1.08); }
+    .product-info { padding: 20px; }
+    .product-cat { font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .product-name { font-size: 1rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+    .product-specs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .product-spec {
+      padding: 3px 8px; border-radius: 4px; font-size: 0.7rem;
+      background: rgba(0,212,255,0.08); color: var(--text-secondary);
+    }
+    .product-price-row { display: flex; align-items: baseline; gap: 10px; }
+    .product-price { font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+    .product-old-price { font-size: 0.85rem; color: var(--text-muted); text-decoration: line-through; }
+    .product-discount {
+      font-size: 0.7rem; font-weight: 700; color: var(--accent-warm);
+      background: rgba(255,107,53,0.15); padding: 2px 8px; border-radius: 4px;
+    }
+    .product-actions { margin-top: 16px; display: flex; gap: 8px; }
+    .product-actions .btn { flex: 1; padding: 10px; font-size: 0.8rem; justify-content: center; border-radius: var(--radius-sm); }
+    .product-count { color: var(--text-muted); font-size: 0.85rem; }
+    .out-of-stock { opacity: 0.5; pointer-events: none; }
+    .out-of-stock::after {
+      content: 'Hết hàng'; position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(10,10,15,0.7); color: var(--text-muted); font-weight: 700; font-size: 1.2rem;
+    }
+    .breadcrumb { padding: 90px 0 0; }
+    .breadcrumb-list { display: flex; gap: 8px; font-size: 0.85rem; color: var(--text-muted); list-style: none; }
+    .breadcrumb-list a { color: var(--text-secondary); transition: var(--transition); }
+    .breadcrumb-list a:hover { color: var(--accent); }
+    .breadcrumb-list li::after { content: '/'; margin-left: 8px; }
+    .breadcrumb-list li:last-child::after { content: ''; }
+    .breadcrumb-list li:last-child { color: var(--text-primary); }
+    .no-results { text-align: center; padding: 60px 0; color: var(--text-muted); }
+    .no-results h3 { font-size: 1.3rem; margin-bottom: 8px; color: var(--text-secondary); }
+    @media (max-width: 1024px) { .products-list { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 768px) { .products-list { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .products-list { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<!-- HEADER -->
+<header class="header scrolled" id="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="index.html" class="logo">POTECH<span>.vn</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Trang chủ</a>
+        <a href="index.html#about">Giới thiệu</a>
+        <a href="products.html" class="active">Sản phẩm</a>
+        <a href="index.html#projects">Dự án</a>
+        <a href="index.html#services">Dịch vụ</a>
+        <a href="index.html#contact">Liên hệ</a>
+        <a href="admin.html" class="nav-cta">⚙ Quản lý SP</a>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    </nav>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb-list">
+      <li><a href="index.html">Trang chủ</a></li>
+      <li>Sản phẩm</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- PRODUCTS -->
+<section class="products-page">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:32px;text-align:left;max-width:100%;">
+      <h1 class="section-title" style="font-size:2rem;">Sản phẩm Đèn LED</h1>
+      <p class="product-count" id="productCount"></p>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-cat="all">Tất cả</button>
+      <!-- Populated by JS -->
+      <select class="sort-select" id="sortSelect">
+        <option value="featured">Nổi bật</option>
+        <option value="price-asc">Giá tăng dần</option>
+        <option value="price-desc">Giá giảm dần</option>
+        <option value="name">Tên A-Z</option>
+      </select>
+    </div>
+
+    <div class="products-list" id="productsList"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border:none;padding:0;">
+      <span>© 2026 POTECH. All rights reserved.</span>
+      <a href="index.html" style="color:var(--accent);">← Về trang chủ</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+let allProducts = [];
+let currentCategory = 'all';
+
+// Load products from JSON
+async function loadProducts() {
+  try {
+    const res = await fetch('data/products.json');
+    allProducts = await res.json();
+    buildFilters();
+    renderProducts();
+  } catch (e) {
+    document.getElementById('productsList').innerHTML =
+      '<div class="no-results"><h3>Không tải được dữ liệu</h3><p>Vui lòng thử lại sau.</p></div>';
+  }
+}
+
+function buildFilters() {
+  const cats = [...new Set(allProducts.map(p => p.category))];
+  const bar = document.getElementById('filterBar');
+  const sortEl = bar.querySelector('.sort-select');
+  cats.forEach(cat => {
+    const p = allProducts.find(x => x.category === cat);
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.cat = cat;
+    btn.textContent = p.categoryName;
+    btn.addEventListener('click', () => {
+      bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = cat;
+      renderProducts();
+    });
+    bar.insertBefore(btn, sortEl);
+  });
+}
+
+function formatPrice(n) {
+  return n.toLocaleString('vi-VN') + 'đ';
+}
+
+function renderProducts() {
+  let list = currentCategory === 'all' ? [...allProducts] : allProducts.filter(p => p.category === currentCategory);
+
+  const sort = document.getElementById('sortSelect').value;
+  if (sort === 'price-asc') list.sort((a, b) => a.price - b.price);
+  else if (sort === 'price-desc') list.sort((a, b) => b.price - a.price);
+  else if (sort === 'name') list.sort((a, b) => a.name.localeCompare(b.name));
+  else list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+
+  document.getElementById('productCount').textContent = `Hiển thị ${list.length} sản phẩm`;
+
+  if (!list.length) {
+    document.getElementById('productsList').innerHTML = '<div class="no-results"><h3>Không tìm thấy sản phẩm</h3></div>';
+    return;
+  }
+
+  document.getElementById('productsList').innerHTML = list.map(p => {
+    const discount = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+    const badgeClass = p.badge === 'Mới' ? 'new' : p.badge === 'Đặc biệt' ? 'special' : '';
+    return `
+      <div class="product-card ${p.inStock ? '' : 'out-of-stock'}">
+        ${p.badge ? `<span class="product-badge ${badgeClass}">${p.badge}</span>` : ''}
+        <div class="product-img"><img src="${p.image}" alt="${p.name}" loading="lazy"></div>
+        <div class="product-info">
+          <div class="product-cat">${p.categoryName}</div>
+          <h3 class="product-name">${p.name}</h3>
+          <div class="product-specs">
+            <span class="product-spec">${p.specs.power}</span>
+            <span class="product-spec">${p.specs.lumens}</span>
+            <span class="product-spec">${p.specs.ip}</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">${formatPrice(p.price)}</span>
+            ${p.oldPrice ? `<span class="product-old-price">${formatPrice(p.oldPrice)}</span>` : ''}
+            ${discount ? `<span class="product-discount">-${discount}%</span>` : ''}
+          </div>
+          <div class="product-actions">
+            <a href="tel:0912122016" class="btn btn-primary">Liên hệ</a>
+            <button class="btn btn-outline" onclick="alert('Đã thêm ${p.name} vào danh sách yêu thích!')">♥</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+document.getElementById('sortSelect').addEventListener('change', renderProducts);
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('active');
+});
+loadProducts();
+</script>
+</body>
+</html>
