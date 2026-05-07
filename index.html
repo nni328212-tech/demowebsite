@@ -65,7 +65,7 @@
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "POTECH LED",
+    "name": "Global Solutions",
     "image": "https://www.potech.com.vn/images/og-cover.png",
     "telephone": "+84912122016",
     "email": "info@potech.com.vn",
@@ -93,32 +93,15 @@
 <header class="header" id="header">
   <div class="container">
     <nav class="nav">
-      <a href="#" class="logo">POTECH<span>.vn</span></a>
+      <a href="#" class="logo"><span class="logo-icon">⚙</span> GLOBAL<span>SOLUTIONS</span></a>
       <div class="nav-links" id="navLinks">
         <a href="#home" class="active">Trang chủ</a>
-        <div class="dropdown">
-          <a href="#about">Giới thiệu ▾</a>
-          <div class="dropdown-menu">
-            <a href="#about">Về công ty</a>
-            <a href="#features">Vì sao chọn POTECH</a>
-            <a href="#stats">Thành tựu</a>
-          </div>
-        </div>
-        <div class="dropdown">
-          <a href="#products">Sản phẩm ▾</a>
-          <div class="dropdown-menu">
-            <a href="#products">Đèn LED nhà xưởng</a>
-            <a href="#products">Đèn pha LED</a>
-            <a href="#products">Đèn đường LED</a>
-            <a href="#products">Đèn LED chống cháy nổ</a>
-            <a href="#products">Đèn năng lượng mặt trời</a>
-            <a href="#products">Xem tất cả</a>
-          </div>
-        </div>
-        <a href="#projects">Dự án</a>
-        <a href="#services">Dịch vụ</a>
+        <a href="#about">Về chúng tôi</a>
+        <a href="#news">Tin tức</a>
+        <a href="#careers">Tuyển dụng</a>
         <a href="#contact">Liên hệ</a>
-        <a href="#contact" class="nav-cta">Báo giá miễn phí</a>
+        <a href="#contact" class="nav-cta">Hỗ trợ trực tuyến</a>
+        <button style="background:none; border:none; font-size:1.2rem; margin-left:8px; color:var(--text-secondary); cursor:pointer;">🔍</button>
       </div>
       <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
     </nav>
@@ -130,13 +113,8 @@
   <div class="hero-bg"><img src="images/hero_factory.png" alt="Factory"><div></div></div>
   <div class="container">
     <div class="hero-content">
-      <div class="hero-badge"><span class="dot"></span> Đối tác chính thức Nichia Nhật Bản</div>
-      <h1>Giải pháp <span class="highlight">Chiếu sáng LED</span> Công nghiệp Hàng đầu</h1>
-      <p>Sản phẩm đèn LED chất lượng cao với chip Nichia 100% Made in Japan. Tuổi thọ trên 50,000 giờ, tiết kiệm đến 70% điện năng.</p>
-      <div class="hero-actions">
-        <a href="products.html" class="btn btn-primary">🔍 Xem sản phẩm & Báo giá</a>
-        <a href="#contact" class="btn btn-outline">📞 Tư vấn miễn phí</a>
-      </div>
+      <h1>GIẢI PHÁP TOÀN DIỆN CHO CÔNG NGHIỆP & NĂNG LƯỢNG MỚI</h1>
+      <p>Khám phá các lĩnh vực cốt lõi của chúng tôi bên dưới.</p>
     </div>
   </div>
 </section>
@@ -151,63 +129,72 @@
   </div>
 </div>
 
-<!-- PRODUCTS -->
-<section class="section" id="products">
+<!-- BUSINESS PILLARS -->
+<section class="section" id="pillars" style="margin-top:-80px; position:relative; z-index:10; padding-top:0;">
   <div class="container">
-    <div class="section-header animate-on-scroll">
-      <span class="section-tag">Sản phẩm</span>
-      <h2 class="section-title">Danh mục Đèn LED</h2>
-      <p class="section-desc">Đa dạng giải pháp chiếu sáng cho mọi nhu cầu công nghiệp và dân dụng</p>
+    <div class="pillars-grid">
+      <!-- 1. Lighting -->
+      <div class="pillar-card lighting animate-on-scroll">
+        <div class="pillar-header">
+          <h3>ĐÈN CÔNG NGHIỆP</h3>
+          <div class="pillar-icon">💡</div>
+        </div>
+        <div class="pillar-img"><img src="images/led_highbay.png" alt="Đèn công nghiệp" loading="lazy"></div>
+        <div class="pillar-body">
+          <p class="pillar-desc">Chiếu sáng nhà xưởng, kho bãi tối ưu.</p>
+          <a href="products.html" class="pillar-btn">XEM CHI TIẾT</a>
+        </div>
+      </div>
+      <!-- 2. Battery -->
+      <div class="pillar-card battery animate-on-scroll" style="transition-delay: 0.1s">
+        <div class="pillar-header">
+          <h3>PIN</h3>
+          <div class="pillar-icon">🔋</div>
+        </div>
+        <div class="pillar-img"><img src="images/battery_storage.jpg" onerror="this.src='https://placehold.co/400x300/2a7e6b/fff?text=Battery+Storage'" alt="Pin lưu trữ" loading="lazy"></div>
+        <div class="pillar-body">
+          <p class="pillar-desc">Giải pháp lưu trữ năng lượng tin cậy.</p>
+          <button class="pillar-btn">XEM CHI TIẾT</button>
+        </div>
+      </div>
+      <!-- 3. Solar -->
+      <div class="pillar-card solar animate-on-scroll" style="transition-delay: 0.2s">
+        <div class="pillar-header">
+          <h3>NLMT</h3>
+          <div class="pillar-icon">☀️</div>
+        </div>
+        <div class="pillar-img"><img src="images/solar_panel.jpg" onerror="this.src='https://placehold.co/400x300/f8b133/333?text=Solar+Energy'" alt="Năng lượng mặt trời" loading="lazy"></div>
+        <div class="pillar-body">
+          <p class="pillar-desc">Năng lượng mặt trời sạch cho tương lai.</p>
+          <button class="pillar-btn">XEM CHI TIẾT</button>
+        </div>
+      </div>
+      <!-- 4. Construction -->
+      <div class="pillar-card construction animate-on-scroll" style="transition-delay: 0.3s">
+        <div class="pillar-header">
+          <h3>XÂY DỰNG</h3>
+          <div class="pillar-icon">🏗️</div>
+        </div>
+        <div class="pillar-img"><img src="images/construction.jpg" onerror="this.src='https://placehold.co/400x300/c25b4e/fff?text=Construction'" alt="Xây dựng" loading="lazy"></div>
+        <div class="pillar-body">
+          <p class="pillar-desc">Thi công công trình, hạ tầng chất lượng.</p>
+          <button class="pillar-btn">XEM CHI TIẾT</button>
+        </div>
+      </div>
     </div>
-    <div class="categories-grid">
-      <div class="category-card animate-on-scroll">
-        <div class="category-card-img"><img src="images/led_highbay.png" alt="Đèn LED nhà xưởng highbay công suất 100W-500W chip Nichia" loading="lazy"></div>
-        <div class="category-card-body">
-          <h3>Đèn LED Nhà xưởng</h3>
-          <p>Highbay công suất 100W-500W, hiệu suất sáng cao, chống bụi IP65</p>
-          <span class="card-link">Xem chi tiết →</span>
-        </div>
-      </div>
-      <div class="category-card animate-on-scroll">
-        <div class="category-card-img"><img src="images/led_floodlight.png" alt="Đèn pha LED công suất lớn 200W-1000W chiếu sáng sân bãi" loading="lazy"></div>
-        <div class="category-card-body">
-          <h3>Đèn Pha LED</h3>
-          <p>Công suất lớn 200W-1000W, chiếu sáng sân bãi, cảng biển, sân thể thao</p>
-          <span class="card-link">Xem chi tiết →</span>
-        </div>
-      </div>
-      <div class="category-card animate-on-scroll">
-        <div class="category-card-img"><img src="images/led_streetlight.png" alt="Đèn đường LED chống nước IP66 chiếu sáng đường phố" loading="lazy"></div>
-        <div class="category-card-body">
-          <h3>Đèn Đường LED</h3>
-          <p>Thiết kế khí động học, chống nước IP66, phù hợp mọi tuyến đường</p>
-          <span class="card-link">Xem chi tiết →</span>
-        </div>
-      </div>
-      <div class="category-card animate-on-scroll">
-        <div class="category-card-img"><img src="images/led_explosion_proof.png" alt="Đèn LED chống cháy nổ tiêu chuẩn ATEX cho nhà máy" loading="lazy"></div>
-        <div class="category-card-body">
-          <h3>Đèn LED Chống cháy nổ</h3>
-          <p>Tiêu chuẩn ATEX, dùng cho mỏ, nhà máy hóa chất, dầu khí</p>
-          <span class="card-link">Xem chi tiết →</span>
-        </div>
-      </div>
-      <div class="category-card animate-on-scroll">
-        <div class="category-card-img"><img src="images/led_solar.png" alt="Đèn LED năng lượng mặt trời tích hợp pin Lithium" loading="lazy"></div>
-        <div class="category-card-body">
-          <h3>Đèn Năng lượng Mặt trời</h3>
-          <p>Tích hợp pin Lithium, tự sạc ban ngày, chiếu sáng 10-12h liên tục</p>
-          <span class="card-link">Xem chi tiết →</span>
-        </div>
-      </div>
-      <div class="category-card animate-on-scroll">
-        <div class="category-card-img"><img src="images/led_panel.png" alt="Đèn LED Panel văn phòng ánh sáng đều bảo vệ mắt" loading="lazy"></div>
-        <div class="category-card-body">
-          <h3>Đèn LED Panel & Văn phòng</h3>
-          <p>Ánh sáng đều, không nhấp nháy, bảo vệ mắt, dành cho văn phòng</p>
-          <span class="card-link">Xem chi tiết →</span>
-        </div>
-      </div>
+  </div>
+</section>
+
+<!-- LATEST NEWS & PARTNERS PLACEHOLDER -->
+<section class="section" style="padding-top:20px;">
+  <div class="container" style="display:flex; justify-content:space-between; gap:40px;">
+    <div style="flex:1;">
+      <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:20px; color:var(--text-primary); text-transform:uppercase;">Tin tức mới nhất</h3>
+      <div style="color:var(--text-muted); font-size:0.9rem;">(Đang cập nhật nội dung tin tức...)</div>
+    </div>
+    <div style="flex:1;">
+      <h3 style="font-size:1.2rem; font-weight:800; margin-bottom:20px; color:var(--text-primary); text-transform:uppercase;">Đối tác chiến lược</h3>
+      <div style="color:var(--text-muted); font-size:0.9rem;">(Đang cập nhật danh sách đối tác...)</div>
     </div>
   </div>
 </section>
@@ -246,7 +233,7 @@
 </section>
 
 <!-- PROJECTS -->
-<section class="section" id="projects" style="background: var(--bg-secondary);">
+<section class="section" id="projects" style="background: var(--bg-primary);">
   <div class="container">
     <div class="section-header animate-on-scroll">
       <span class="section-tag">Dự án</span>
@@ -378,9 +365,9 @@
 <!-- CTA -->
 <section class="section">
   <div class="container">
-    <div class="cta-section animate-on-scroll">
-      <h2>Bạn cần <span style="color:var(--accent)">tư vấn chiếu sáng</span> miễn phí?</h2>
-      <p>Đội ngũ kỹ sư POTECH sẵn sàng hỗ trợ bạn 24/7. Liên hệ ngay để nhận bản thiết kế chiếu sáng miễn phí!</p>
+    <div class="cta-section animate-on-scroll" style="background: linear-gradient(135deg, rgba(35,59,102,0.05), rgba(248,177,51,0.05));">
+      <h2>Bạn cần <span style="color:var(--brand-blue)">giải pháp</span> năng lượng chuyên nghiệp?</h2>
+      <p>Đội ngũ chuyên gia Global Solutions sẵn sàng hỗ trợ bạn 24/7. Liên hệ ngay để nhận tư vấn!</p>
       <div class="cta-actions">
         <a href="tel:0912122016" class="btn btn-primary">📞 Gọi ngay: 0912.122.016</a>
         <a href="#contact" class="btn btn-outline">✉️ Gửi yêu cầu</a>
@@ -390,30 +377,34 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" style="background: var(--brand-blue); color: #fff;">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="logo" style="font-size:1.5rem;">POTECH<span>.vn</span></div>
-        <p>CÔNG TY TNHH CÔNG NGHỆ NĂNG LƯỢNG POTECH<br>GPKD: 0311519359<br>350/33/10/9B Quốc Lộ 1, KP4, An Phú Đông, TP.HCM</p>
+        <a href="#" class="logo" style="color: #fff; font-size:1.5rem;"><span class="logo-icon" style="color:var(--brand-yellow)">⚙</span> GLOBAL<span style="color:var(--brand-yellow); font-weight:700">SOLUTIONS</span></a>
+        <p style="color: rgba(255,255,255,0.7); margin-top: 16px;">Giải pháp toàn diện cho công nghiệp & năng lượng mới.<br>Chúng tôi cam kết mang lại giá trị bền vững và hiệu quả cao nhất cho mọi công trình.</p>
       </div>
       <div class="footer-col">
-        <h4>Sản phẩm</h4>
-        <a href="#">Đèn LED nhà xưởng</a><a href="#">Đèn pha LED</a><a href="#">Đèn đường LED</a><a href="#">Đèn chống cháy nổ</a><a href="#">Đèn NLMT</a>
+        <h4 style="color: #fff;">Về chúng tôi</h4>
+        <a href="#" style="color: rgba(255,255,255,0.7);">Giới thiệu công ty</a><a href="#" style="color: rgba(255,255,255,0.7);">Tầm nhìn & Sứ mệnh</a><a href="#" style="color: rgba(255,255,255,0.7);">Tin tức sự kiện</a><a href="#" style="color: rgba(255,255,255,0.7);">Tuyển dụng</a>
       </div>
       <div class="footer-col">
-        <h4>Dịch vụ</h4>
-        <a href="#">Tư vấn thiết kế</a><a href="#">Thi công lắp đặt</a><a href="#">Bảo trì bảo dưỡng</a><a href="#">Sửa chữa</a>
+        <h4 style="color: #fff;">Lĩnh vực</h4>
+        <a href="#" style="color: rgba(255,255,255,0.7);">Đèn công nghiệp</a><a href="#" style="color: rgba(255,255,255,0.7);">Giải pháp Pin lưu trữ</a><a href="#" style="color: rgba(255,255,255,0.7);">Năng lượng mặt trời</a><a href="#" style="color: rgba(255,255,255,0.7);">Xây dựng hạ tầng</a>
       </div>
       <div class="footer-col">
-        <h4>Hỗ trợ</h4>
-        <a href="#">Chính sách bảo hành</a><a href="#">Hướng dẫn mua hàng</a><a href="#">Hình thức thanh toán</a><a href="#">Chính sách giao hàng</a>
+        <h4 style="color: #fff;">Liên hệ</h4>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 8px;">📍 TP. Hồ Chí Minh, Việt Nam</p>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 8px;">📞 Hotline: 0912 122 016</p>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 8px;">✉ Email: contact@globalsolutions.vn</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 POTECH. All rights reserved.</span>
+    <div class="footer-bottom" style="border-top-color: rgba(255,255,255,0.1);">
+      <span style="color: rgba(255,255,255,0.5);">© 2026 Global Solutions. All rights reserved.</span>
       <div class="footer-socials">
-        <a href="#" aria-label="Facebook">f</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="Zalo">Z</a>
+        <a href="#" aria-label="Facebook" style="background: rgba(255,255,255,0.1); border-color: transparent; color: #fff;">f</a>
+        <a href="#" aria-label="YouTube" style="background: rgba(255,255,255,0.1); border-color: transparent; color: #fff;">▶</a>
+        <a href="#" aria-label="Zalo" style="background: rgba(255,255,255,0.1); border-color: transparent; color: #fff;">Z</a>
       </div>
     </div>
   </div>
