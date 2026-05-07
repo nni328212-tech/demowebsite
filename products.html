@@ -62,7 +62,7 @@
         <a href="products.html" class="active">Sản phẩm</a>
         <a href="index.html#projects">Dự án</a>
         <a href="index.html#contact">Liên hệ</a>
-        <a href="admin.html" class="nav-cta">⚙ Quản trị</a>
+        <a href="cart.html" class="nav-cta">🛒 Giỏ hàng (<span id="cartCountNav">0</span>)</a>
       </div>
       <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
     </nav>
@@ -92,6 +92,7 @@
 
 <footer class="footer"><div class="container"><div class="footer-bottom" style="border:none;padding:0;"><span>© 2026 POTECH. All rights reserved.</span><a href="index.html" style="color:var(--accent);">← Về trang chủ</a></div></div></footer>
 
+<script src="js/cart.js"></script>
 <script src="js/supabase-client.js"></script>
 <script>
 let allProducts = [];
@@ -158,32 +159,45 @@ function renderProducts() {
     const specs = typeof p.specs === 'string' ? JSON.parse(p.specs) : p.specs;
     return `<div class="product-card">
       ${p.badge ? `<span class="product-badge ${badgeClass}">${p.badge}</span>` : ''}
-      <div class="product-img"><img src="${p.image_url}" alt="${p.name}" loading="lazy"></div>
-      <div class="product-info">
-        <div class="product-cat">${p.category_name || ''}</div>
-        <h3 class="product-name">${p.name}</h3>
-        ${p.sku ? `<div class="product-sku">SKU: ${p.sku}</div>` : ''}
-        <div class="product-specs">
-          ${specs?.power ? `<span class="product-spec">${specs.power}</span>` : ''}
-          ${specs?.lumens ? `<span class="product-spec">${specs.lumens}</span>` : ''}
-          ${specs?.ip || p.ip_rating ? `<span class="product-spec">${specs?.ip || p.ip_rating}</span>` : ''}
+      <a href="product-detail.html?slug=${p.slug}" style="text-decoration:none;color:inherit">
+        <div class="product-img"><img src="${p.image_url}" alt="${p.name}" loading="lazy"></div>
+        <div class="product-info">
+          <div class="product-cat">${p.category_name || ''}</div>
+          <h3 class="product-name">${p.name}</h3>
+          ${p.sku ? `<div class="product-sku">SKU: ${p.sku}</div>` : ''}
+          <div class="product-specs">
+            ${specs?.power ? `<span class="product-spec">${specs.power}</span>` : ''}
+            ${specs?.lumens ? `<span class="product-spec">${specs.lumens}</span>` : ''}
+            ${specs?.ip || p.ip_rating ? `<span class="product-spec">${specs?.ip || p.ip_rating}</span>` : ''}
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">${formatVND(p.price)}</span>
+            ${p.old_price ? `<span class="product-old-price">${formatVND(p.old_price)}</span>` : ''}
+            ${discount > 0 ? `<span class="product-discount">-${discount}%</span>` : ''}
+          </div>
         </div>
-        <div class="product-price-row">
-          <span class="product-price">${formatVND(p.price)}</span>
-          ${p.old_price ? `<span class="product-old-price">${formatVND(p.old_price)}</span>` : ''}
-          ${discount > 0 ? `<span class="product-discount">-${discount}%</span>` : ''}
-        </div>
-        <div class="product-actions">
-          <a href="tel:0912122016" class="btn btn-primary">📞 Báo giá</a>
-          <a href="https://zalo.me/0912122016" class="btn btn-outline" target="_blank">Zalo</a>
-        </div>
-      </div>
+      </a>
+      <div style="padding:0 20px 20px"><div class="product-actions">
+        <a href="product-detail.html?slug=${p.slug}" class="btn btn-outline">Xem chi tiết</a>
+        <button class="btn btn-primary" onclick="event.stopPropagation();addToCart('${p.id}','${p.name.replace(/'/g,'')}','${p.sku||''}',${p.price},'${p.image_url}','${p.unit||'bộ'}')">🛒 Thêm</button>
+      </div></div>
     </div>`;
   }).join('');
 }
 
 document.getElementById('sortSelect').onchange = renderProducts;
 document.getElementById('menuToggle').onclick = () => document.getElementById('navLinks').classList.toggle('active');
+
+function addToCart(id,name,sku,price,img,unit) {
+  Cart.add({id,name,sku,price,image_url:img,qty:1,unit});
+  document.getElementById('cartCountNav').textContent = Cart.count();
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--accent);color:#000;padding:14px 24px;border-radius:12px;font-weight:600;z-index:5000;animation:fadeInUp .3s';
+  t.textContent = '✓ Đã thêm vào giỏ hàng';
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2000);
+}
+document.getElementById('cartCountNav').textContent = Cart.count();
 init();
 </script>
 </body>
