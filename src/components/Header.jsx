@@ -18,6 +18,7 @@ export default function Header() {
         <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ''}`}>
           <Link href="/" className={styles.active}>Trang chủ</Link>
           <Link href="/about">Về chúng tôi</Link>
+          <Link href="/products">Sản phẩm</Link>
           <Link href="/news">Tin tức</Link>
           <Link href="/careers">Tuyển dụng</Link>
           <Link href="/contact">Liên hệ</Link>

@@ -1,0 +1,274 @@
+.breadcrumb {
+  background: var(--bg-secondary);
+  padding: 16px 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.breadcrumb a {
+  transition: var(--transition);
+}
+
+.breadcrumb a:hover {
+  color: var(--brand-blue);
+}
+
+.separator {
+  margin: 0 10px;
+  color: var(--text-muted);
+}
+
+.current {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.mainLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mainImage {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--brand-red);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 4px;
+  z-index: 10;
+  text-transform: uppercase;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.productTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.sku {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.priceBox {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.currentPrice {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--brand-blue);
+}
+
+.oldPrice {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.description {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.keyFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+
+.keyFeatures li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.checkIcon {
+  color: var(--brand-green);
+}
+
+.stockStatus {
+  margin-bottom: 30px;
+}
+
+.inStock {
+  color: var(--brand-green);
+  font-weight: 700;
+}
+
+.outOfStock {
+  color: var(--brand-red);
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.qtyControl {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.qtyControl button {
+  background: var(--bg-secondary);
+  border: none;
+  width: 48px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.qtyControl button:hover {
+  background: #e2e8f0;
+}
+
+.qtyControl input {
+  width: 60px;
+  border: none;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.addToCartBtn {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  font-size: 1.1rem;
+  height: 56px;
+}
+
+/* Tabs */
+.tabsSection {
+  margin-top: 40px;
+}
+
+.tabHeader {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 30px;
+}
+
+.tabBtn {
+  background: none;
+  border: none;
+  padding: 16px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+}
+
+.tabBtn.active {
+  color: var(--brand-blue);
+}
+
+.tabBtn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--brand-blue);
+}
+
+.specsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  max-width: 800px;
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.specRow:last-child {
+  border-bottom: none;
+}
+
+.specLabel {
+  background: var(--bg-secondary);
+  padding: 16px 20px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-right: 1px solid var(--border);
+}
+
+.specValue {
+  padding: 16px 20px;
+  color: var(--text-primary);
+}
+
+@media (max-width: 992px) {
+  .mainLayout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .actions {
+    flex-direction: column;
+  }
+  .specRow {
+    grid-template-columns: 1fr;
+  }
+  .specLabel {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
