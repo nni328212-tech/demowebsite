@@ -1,11 +1,21 @@
 'use client';
 import Link from 'next/link';
-import { Settings, Search, Menu } from 'lucide-react';
-import { useState } from 'react';
+import { Settings, Search, Menu, ShoppingCart } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useCartStore } from '@/store/cartStore';
 import styles from './Header.module.css';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const items = useCartStore((state) => state.items);
+  
+  // Hydration fix for zustand persist
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <header className={styles.header}>
@@ -26,6 +36,12 @@ export default function Header() {
           <button className={styles.searchBtn} aria-label="Search">
             <Search size={20} />
           </button>
+          <Link href="/cart" className={styles.cartBtn} aria-label="Cart">
+            <ShoppingCart size={20} />
+            {mounted && totalItems > 0 && (
+              <span className={styles.cartBadge}>{totalItems}</span>
+            )}
+          </Link>
         </nav>
 
         <button 

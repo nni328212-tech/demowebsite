@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
-import { ShoppingCart, Check, Info, FileText } from 'lucide-react';
+import { Check } from 'lucide-react';
+import ProductActions from '@/components/ProductActions';
 import styles from './page.module.css';
 
 // Generate dynamic metadata for SEO
@@ -109,17 +110,7 @@ export default async function ProductDetailPage({ params }) {
               )}
             </div>
 
-            <div className={styles.actions}>
-              <div className={styles.qtyControl}>
-                <button>-</button>
-                <input type="number" defaultValue="1" min="1" />
-                <button>+</button>
-              </div>
-              <button className={`btn btn-primary ${styles.addToCartBtn}`}>
-                <ShoppingCart size={20} />
-                THÊM VÀO YÊU CẦU BÁO GIÁ
-              </button>
-            </div>
+            <ProductActions product={product} classNameBtn={`btn btn-primary ${styles.addToCartBtn}`} />
           </div>
         </div>
 

@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { ShoppingCart, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
+import AddToCartBtn from '@/components/AddToCartBtn';
 import styles from './page.module.css';
 
 export const metadata = {
@@ -111,9 +112,7 @@ export default async function ProductsPage() {
                                 <span className={styles.price}>Liên hệ báo giá</span>
                               )}
                             </div>
-                            <button className={styles.cartBtn} aria-label="Thêm vào yêu cầu báo giá">
-                              <ShoppingCart size={18} />
-                            </button>
+                            <AddToCartBtn product={product} className={styles.cartBtn} />
                           </div>
                         </div>
                       </div>
