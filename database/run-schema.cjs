@@ -4,8 +4,14 @@
 const fs = require('fs');
 const https = require('https');
 
-const SUPABASE_URL = 'npozfdcayxsivnpxgnzy.supabase.co';
-const SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wb3pmZGNheXhzaXZucHhnbnp5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODA5NzE2NywiZXhwIjoyMDkzNjczMTY3fQ.yj7YFt7XoWXUx6UnKjiFCeDiYjYWYfpQIpF59Lwp19o';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'npozfdcayxsivnpxgnzy.supabase.co';
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!SERVICE_KEY) {
+  console.error("ERROR: SUPABASE_SERVICE_ROLE_KEY environment variable is not set.");
+  console.error("Please set it before running this script.");
+  process.exit(1);
+}
 
 // Split schema into individual statements
 const schema = fs.readFileSync('database/schema.sql', 'utf8');

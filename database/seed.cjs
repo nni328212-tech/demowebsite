@@ -1,7 +1,12 @@
 const https = require('https');
 
-const URL_BASE = 'npozfdcayxsivnpxgnzy.supabase.co';
-const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5wb3pmZGNheXhzaXZucHhnbnp5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3ODA5NzE2NywiZXhwIjoyMDkzNjczMTY3fQ.yj7YFt7XoWXUx6UnKjiFCeDiYjYWYfpQIpF59Lwp19o';
+const URL_BASE = process.env.SUPABASE_URL || 'npozfdcayxsivnpxgnzy.supabase.co';
+const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!KEY) {
+  console.error("ERROR: SUPABASE_SERVICE_ROLE_KEY environment variable is not set.");
+  process.exit(1);
+}
 
 function apiCall(method, path, body) {
   return new Promise((resolve, reject) => {
@@ -50,11 +55,11 @@ async function main() {
   // 3. Seed settings
   console.log('\nSeeding settings...');
   const settings = [
-    {key:'company_name',value:'CÔNG TY TNHH CÔNG NGHỆ NĂNG LƯỢNG POTECH',group_name:'company'},
+    {key:'company_name',value:'CÔNG TY TNHH GLOBAL SOLUTIONS',group_name:'company'},
     {key:'phone_sales',value:'0912.122.016',group_name:'contact'},
     {key:'phone_tech',value:'0937.659.657',group_name:'contact'},
-    {key:'email',value:'info@potech.com.vn',group_name:'contact'},
-    {key:'address',value:'350/33/10/9B Quốc Lộ 1, KP4, An Phú Đông, TP.HCM',group_name:'company'},
+    {key:'email',value:'contact@globalsolutions.vn',group_name:'contact'},
+    {key:'address',value:'TP.HCM',group_name:'company'},
     {key:'working_hours',value:'T2-T7: 8:00 - 17:30',group_name:'company'},
     {key:'tax_code',value:'0311519359',group_name:'company'},
     {key:'default_vat',value:'10',group_name:'business'}
@@ -66,7 +71,7 @@ async function main() {
 
   // 4. Create admin user
   console.log('\nCreating admin user...');
-  const adminBody = JSON.stringify({ email: 'admin@potech.com.vn', password: 'Potech@2026', email_confirm: true });
+  const adminBody = JSON.stringify({ email: 'admin@globalsolutions.vn', password: 'Global@2026', email_confirm: true });
   const adminRes = await new Promise((resolve, reject) => {
     const req = https.request({
       hostname: URL_BASE, path: '/auth/v1/admin/users', method: 'POST',
@@ -91,7 +96,7 @@ async function main() {
   console.log(`Settings: ${setCheck.d.length} records`);
 
   console.log('\n✅ Database setup complete!');
-  console.log('Admin login: admin@potech.com.vn / Potech@2026');
+  console.log('Admin login: admin@globalsolutions.vn / Global@2026');
 }
 
 main().catch(console.error);
